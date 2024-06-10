@@ -3,33 +3,19 @@
 import React from "react";
 import Room from "./room";
 import { RoomType } from "@/utils/types";
-import { useState, useEffect } from "react";
-import { createGame, getRoomInfo, move } from "@/lib/api"; // Define room types in types.ts
-import Loading from "./loading";
+import { useState } from "react";
+import { getRoomInfo, move } from "@/lib/api"; // Define room types in types.ts
 
-export default function Maze() {
-  const [token, setToken] = useState<string>("");
-  const [rooms, setRooms] = useState<RoomType[]>([]);
-  const [visitedRooms, setVisitedRooms] = useState<string[]>([]);
-  const [currentRoom, setCurrentRoom] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const startGame = async () => {
-      setIsLoading(true); // Start loading
-      const startToken = await createGame();
-      console.log("Token: ", startToken);
-      const currentRoom = await getRoomInfo(startToken);
-      console.log("Room: ", currentRoom);
-      setToken(startToken);
-      setRooms([currentRoom]);
-      setVisitedRooms([currentRoom.id]);
-      setCurrentRoom(currentRoom.id);
-
-      setIsLoading(false); // End loading
-    };
-    startGame();
-  }, []);
+export default function Maze({
+  token,
+  room,
+}: {
+  token: string;
+  room: RoomType;
+}) {
+  const [rooms, setRooms] = useState<RoomType[]>([room]);
+  const [visitedRooms, setVisitedRooms] = useState<string[]>([room.id]);
+  const [currentRoom, setCurrentRoom] = useState<string>(room.id);
 
   const handleMove = async (direction: string) => {
     console.log("Direction: ", direction);
@@ -43,16 +29,14 @@ export default function Maze() {
   };
   return (
     <div>
-      {isLoading && <Loading />}
-      {!isLoading &&
-        rooms.map((room) => (
-          <Room
-            key={room.id}
-            room={room}
-            handleMove={handleMove}
-            currentRoom={currentRoom === room.id}
-          />
-        ))}
+      {rooms.map((room) => (
+        <Room
+          key={room.id}
+          room={room}
+          handleMove={handleMove}
+          currentRoom={currentRoom === room.id}
+        />
+      ))}
     </div>
   );
 }
