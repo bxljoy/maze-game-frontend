@@ -5,6 +5,7 @@ import Room from "./room";
 import { RoomType } from "@/utils/types";
 import { useState } from "react";
 import { getRoomInfo, move } from "@/lib/api"; // Define room types in types.ts
+import { useRouter } from "next/navigation";
 
 export default function Maze({
   token,
@@ -17,11 +18,18 @@ export default function Maze({
   const [visitedRooms, setVisitedRooms] = useState<string[]>([room.id]);
   const [currentRoom, setCurrentRoom] = useState<string>(room.id);
 
+  const router = useRouter();
+
   const handleMove = async (direction: string) => {
     console.log("Direction: ", direction);
     await move(token, direction);
     const newRoom = await getRoomInfo(token);
     console.log("New Room: ", newRoom);
+    console.log("effect: ", newRoom.effect);
+    if (newRoom.effect === "Victory") {
+      alert("You have won the game! Restart!");
+      router.refresh();
+    }
     setCurrentRoom(newRoom.id);
     if (visitedRooms.includes(newRoom.id)) return; // Prevent infinite loop
     setVisitedRooms([...visitedRooms, newRoom.id]); // Append the new room to the visited rooms array

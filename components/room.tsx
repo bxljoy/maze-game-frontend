@@ -36,6 +36,7 @@ export default function Room({
             "opacity-0 pointer-events-none": north,
           })}
           onClick={async () => await handleClick(NORTH)}
+          disabled={!currentRoom}
         >
           {NORTH}
         </Button>
@@ -45,6 +46,7 @@ export default function Room({
             "opacity-0 pointer-events-none": west,
           })}
           onClick={async () => await handleClick(WEST)}
+          disabled={!currentRoom}
         >
           {WEST}
         </Button>
@@ -60,6 +62,7 @@ export default function Room({
             "opacity-0 pointer-events-none": east,
           })}
           onClick={async () => await handleClick(EAST)}
+          disabled={!currentRoom}
         >
           {EAST}
         </Button>
@@ -69,6 +72,7 @@ export default function Room({
             "opacity-0 pointer-events-none": south,
           })}
           onClick={async () => await handleClick(SOUTH)}
+          disabled={!currentRoom}
         >
           {SOUTH}
         </Button>
