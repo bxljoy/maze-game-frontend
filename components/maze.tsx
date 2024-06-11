@@ -6,6 +6,7 @@ import { RoomType } from "@/utils/types";
 import { useState } from "react";
 import { getRoomInfo, move } from "@/lib/api"; // Define room types in types.ts
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 export default function Maze({
   token,
@@ -36,7 +37,9 @@ export default function Maze({
     setRooms([...rooms, newRoom]); // Append the new room to the existing rooms array
   };
   return (
-    <div>
+    <div
+      className={clsx({ "grid grid-rows-4 grid-flow-col": rooms.length > 4 })}
+    >
       {rooms.map((room) => (
         <Room
           key={room.id}
