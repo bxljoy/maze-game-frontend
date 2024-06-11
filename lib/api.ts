@@ -9,15 +9,15 @@ import axios from "axios";
 import { RoomType } from "@/utils/types";
 
 export async function createGame(): Promise<any> {
-  const gameConfig = {
-    type: "Graph",
-    size: 0,
-    seed: 0,
-  };
+  // const gameConfig = {
+  //   type: "Graph",
+  //   size: 0,
+  //   seed: 0,
+  // };
   const headers = { Authorization: `Bearer ${REFRESH_TOKEN}` };
   const response = await axios.post(CREATE_GAME_ENDPOINT, {
     headers,
-    data: gameConfig,
+    // data: gameConfig,
   });
   return response.data.token;
 }

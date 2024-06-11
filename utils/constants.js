@@ -1,5 +1,6 @@
 // Constants
-const BASE_URL = "https://mazegame.plingot.com";
+// const BASE_URL = "https://mazegame.plingot.com";
+const BASE_URL = "https://maze-game-api-obi5.onrender.com";
 const CREATE_GAME_ENDPOINT = `${BASE_URL}/Game/start`;
 const ROOM_INFO_ENDPOINT = `${BASE_URL}/Room/current`;
 const PLAYER_INFO_ENDPOINT = `${BASE_URL}/Player`;
